@@ -104,8 +104,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     @SuppressLint("InvalidAnalyticsName")
     override fun onClick(v: View?) {
-        val params = Bundle()
-        params.putInt("Button ID", v!!.id)
+
         when(v!!.id){
             R.id.floatingActionButton -> navController!!.navigate(R.id.action_homeFragment_to_saveFragment)
 

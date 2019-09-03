@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
+import com.zeeb.fireapp.MainActivity
 import com.zeeb.fireapp.R
 import com.zeeb.fireapp.model.ItemUser
 
@@ -33,7 +34,6 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-
 
         p0.nama?.text = dataItem?.get(p1)?.nama
         p0.status?.text = dataItem?.get(p1)?.status
@@ -72,7 +72,11 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
             progressDialog.show()
             val mydatabase = FirebaseDatabase.getInstance().getReference("users")
             mydatabase.child(id).removeValue()
+            val intent = Intent(mContext, MainActivity::class.java)
+            mContext!!.startActivity(intent)
+
             if (mydatabase.child(id).removeValue().isSuccessful){
+
                 progressDialog.dismiss()
             }else{
                 progressDialog.dismiss()
@@ -95,11 +99,9 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
     private fun showUpdateDialog(id: String, nama: String, email: String) {
 
         val builder = AlertDialog.Builder(mContext!!)
-
         builder.setTitle("Update")
 
         val inflater = LayoutInflater.from(mContext)
-
         val view = inflater.inflate(R.layout.update, null)
 
         val textNama = view.findViewById<EditText>(R.id.edtUpdateName)
@@ -109,14 +111,20 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
         textStatus.setText(email)
 
         builder.setView(view)
-
         builder.setPositiveButton("Update") { dialog, which ->
 
             val dbUsers = FirebaseDatabase.getInstance().getReference("users")
             val user = ItemUser(id,nama,email)
 
-            dbUsers.child(id).setValue(user).addOnCompleteListener {
-                Toast.makeText(mContext,"Updated",Toast.LENGTH_SHORT).show()
+            dbUsers.child(id)
+                .child("status")
+                .setValue(nama).addOnCompleteListener {
+                    if(it.isSuccessful){
+                        Toast.makeText(mContext,"Updated $id",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(mContext,"FAILED",Toast.LENGTH_SHORT).show()
+
+                    }
                 textNama.setText("")
                 textStatus.setText("")
             }
