@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "871577245286",
+    "firebase_url": "https://fireapp-e9502.firebaseio.com",
+    "project_id": "fireapp-e9502",
+    "storage_bucket": "fireapp-e9502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871577245286:android:dbb3cd001eb0db9f",
+        "android_client_info": {
+          "package_name": "com.zeeb.fireapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871577245286-jg5f7f21ntn8o660ns5k97n8janojh96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeeb.fireapp",
+            "certificate_hash": "1feb7b6e938c69a1927ab0f7a73e890e822319cb"
+          }
+        },
+        {
+          "client_id": "871577245286-pf36jlv265qs9j6oiub2o9rcge0q42tb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWPfhL8PjLvBlr47lr7EFPQDgRak-9Ehk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871577245286-pf36jlv265qs9j6oiub2o9rcge0q42tb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
