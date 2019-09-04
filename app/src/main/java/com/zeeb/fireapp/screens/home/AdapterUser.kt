@@ -41,18 +41,19 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
 
         p0.itemView.setOnClickListener {
             val intent = Intent(mContext, DetailActivity::class.java)
+            intent.putExtra("id", dataItem?.get(p1)?.id)
             intent.putExtra("nama", dataItem?.get(p1)?.nama)
             intent.putExtra("status", dataItem?.get(p1)?.status)
             mContext?.startActivity(intent)
         }
 
-        p0.update?.setOnClickListener{
-            val id = dataItem?.get(p1)?.id.toString()
-            val nama = dataItem?.get(p1)?.nama.toString()
-            val status = dataItem?.get(p1)?.status.toString()
-            showUpdateDialog(id,nama,status)
-
-        }
+//        p0.update?.setOnClickListener{
+//            val id = dataItem?.get(p1)?.id.toString()
+//            val nama = dataItem?.get(p1)?.nama.toString()
+//            val status = dataItem?.get(p1)?.status.toString()
+//            showUpdateDialog(id,nama,status)
+//
+//        }
         p0.delete?.setOnClickListener{
             val id = dataItem?.get(p1)?.id.toString()
             showDeleteDialog(id)
@@ -72,11 +73,11 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
             progressDialog.show()
             val mydatabase = FirebaseDatabase.getInstance().getReference("users")
             mydatabase.child(id).removeValue()
+
             val intent = Intent(mContext, MainActivity::class.java)
             mContext!!.startActivity(intent)
 
             if (mydatabase.child(id).removeValue().isSuccessful){
-
                 progressDialog.dismiss()
             }else{
                 progressDialog.dismiss()
@@ -95,56 +96,56 @@ open class AdapterUser(c: Context?, data: List<ItemUser>?) : RecyclerView.Adapte
 
     }
 
-    @SuppressLint("InflateParams")
-    private fun showUpdateDialog(id: String, nama: String, email: String) {
+//    @SuppressLint("InflateParams")
+//    private fun showUpdateDialog(id: String, nama: String, status: String) {
+//
+//        val builder = AlertDialog.Builder(mContext!!)
+//        builder.setTitle("Update")
+//
+//        val inflater = LayoutInflater.from(mContext)
+//        val view = inflater.inflate(R.layout.update, null)
+//
+//        val textNama = view.findViewById<EditText>(R.id.edtUpdateName)
+//        val textStatus = view.findViewById<EditText>(R.id.edtUpdateStatus)
+//
+//        textNama.setText(nama)
+//        textStatus.setText(status)
+//
+//        builder.setView(view)
+//        builder.setPositiveButton("Update") { dialog, which ->
+//
+//            val dbUsers = FirebaseDatabase.getInstance().getReference("users").child(id)
+//            val user = ItemUser(id,nama,status)
+//            dbUsers
+//                .setValue(user)
+//                .addOnCompleteListener {
+//                    if(it.isSuccessful){
+//                        Toast.makeText(mContext,"Updated $id",Toast.LENGTH_SHORT).show()
+////                        textNama.setText("")
+////                        textStatus.setText("")
+//                    }else{
+//                        Toast.makeText(mContext,"FAILED",Toast.LENGTH_SHORT).show()
+//
+//                    }
+//
+//            }
+//
+//        }
+//
+//        builder.setNegativeButton("No") { dialog, which ->
+//
+//        }
+//
+//        val alert = builder.create()
+//        alert.show()
 
-        val builder = AlertDialog.Builder(mContext!!)
-        builder.setTitle("Update")
 
-        val inflater = LayoutInflater.from(mContext)
-        val view = inflater.inflate(R.layout.update, null)
-
-        val textNama = view.findViewById<EditText>(R.id.edtUpdateName)
-        val textStatus = view.findViewById<EditText>(R.id.edtUpdateStatus)
-
-        textNama.setText(nama)
-        textStatus.setText(email)
-
-        builder.setView(view)
-        builder.setPositiveButton("Update") { dialog, which ->
-
-            val dbUsers = FirebaseDatabase.getInstance().getReference("users")
-            val user = ItemUser(id,nama,email)
-
-            dbUsers.child(id)
-                .child("status")
-                .setValue(nama).addOnCompleteListener {
-                    if(it.isSuccessful){
-                        Toast.makeText(mContext,"Updated $id",Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(mContext,"FAILED",Toast.LENGTH_SHORT).show()
-
-                    }
-                textNama.setText("")
-                textStatus.setText("")
-            }
-
-        }
-
-        builder.setNegativeButton("No") { dialog, which ->
-
-        }
-
-        val alert = builder.create()
-        alert.show()
-
-
-    }
+//    }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         var nama = itemView?.findViewById<TextView>(R.id.tvNama)
         var status = itemView?.findViewById<TextView>(R.id.tvStatus)
-        var update = itemView?.findViewById<Button>(R.id.btnUpdate)
+//        var update = itemView?.findViewById<Button>(R.id.btnUpdate)
         var delete = itemView?.findViewById<Button>(R.id.btnDelete)
 
 
