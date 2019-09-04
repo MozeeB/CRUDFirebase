@@ -23,6 +23,18 @@ class DetailActivity : AppCompatActivity() {
         btnUpdate.setOnClickListener {
             updateData()
         }
+        btnDelete.setOnClickListener{
+            deleteData()
+        }
+    }
+
+    private fun deleteData() {
+        val id  = intent.getStringExtra("id")
+        val mydatabase = FirebaseDatabase.getInstance().getReference("users")
+        mydatabase.child(id).removeValue()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        Toast.makeText(this,"Deleted!!",Toast.LENGTH_SHORT).show()
     }
 
     private fun updateData() {
@@ -32,14 +44,12 @@ class DetailActivity : AppCompatActivity() {
 
         val dbUsers = FirebaseDatabase.getInstance().getReference("users")
         val user = ItemUser(id,nama,status)
-        dbUsers.child(id)
+        dbUsers.child(user.id)
             .setValue(user)
             .addOnCompleteListener {
                 if(it.isSuccessful){
                     Toast.makeText(this,"Updated $id", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(applicationContext, MainActivity::class.java))
-//                        edtName.setText("")
-//                        edtStatus.setText("")
                 }else{
                     Toast.makeText(this,"FAILED", Toast.LENGTH_SHORT).show()
 
