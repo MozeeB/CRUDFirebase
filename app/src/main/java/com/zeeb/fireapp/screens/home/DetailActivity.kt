@@ -39,8 +39,9 @@ class DetailActivity : AppCompatActivity() {
 
     private fun updateData() {
         val id  = intent.getStringExtra("id")
-        val nama = intent.getStringExtra("nama")
-        val status = intent.getStringExtra("status")
+        val nama = edtName.text.toString()
+        val status = edtStatus.text.toString()
+
 
         val dbUsers = FirebaseDatabase.getInstance().getReference("users")
         val user = ItemUser(id,nama,status)

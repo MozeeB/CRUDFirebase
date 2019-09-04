@@ -43,6 +43,14 @@ class UsersAdapter(val ctx: Context, val users: List<ItemUser>) : RecyclerView.A
             tvName.text = user.nama
             tvStatus.text = user.status
 
+            itemView.setOnClickListener{
+                val intent = Intent(ctx, DetailActivity::class.java)
+                intent.putExtra("id", user.id)
+                intent.putExtra("nama", user.nama)
+                intent.putExtra("status", user.status)
+                ctx.startActivity(intent)
+            }
+
             btnUpdate.setOnClickListener { showUpdateDialog(user) }
             btnDelete.setOnClickListener { deleteInfo(user) }
         }
